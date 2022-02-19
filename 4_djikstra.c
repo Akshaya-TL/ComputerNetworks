@@ -35,18 +35,20 @@ void djikstra(int v, int graph[v][v], int src1)
         visited[i] = 0;
     }
     dist[src1] = 0;
-    int src = src1;
+    int src = src1, mini = INT_MAX;
     while (count < v)
     {   
         visited[src] = 1;
         count++;
-        int newSrc = 0;
+        int newSrc = src;
         for (int i = 0; i < v; i++)
         {
             if (graph[src][i] && visited[i] == 0 && dist[src] != INT_MAX && graph[src][i] + dist[src] < dist[i])
-            {
+            {   
                 dist[i] = graph[src][i] + dist[src];
-                newSrc = i;
+                mini = dist[i] < mini? dist[i] : mini;
+                newSrc = mini == dist[i]? i : newSrc;
+                printf("%d", dist[i]);
             }
         }
         src = newSrc;
@@ -77,4 +79,3 @@ int main()
 
     return 0;
 }
-
